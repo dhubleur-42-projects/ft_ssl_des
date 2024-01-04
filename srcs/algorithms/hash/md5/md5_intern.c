@@ -6,11 +6,11 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:37:18 by dhubleur          #+#    #+#             */
-/*   Updated: 2023/12/06 22:06:12 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:00:39 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "algorithms/md5.h"
+#include "algorithms/hash/md5.h"
 
 // Initial values for MD5 buffers
 #define A 0x67452301

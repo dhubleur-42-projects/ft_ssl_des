@@ -6,11 +6,11 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:34:50 by dhubleur          #+#    #+#             */
-/*   Updated: 2023/12/07 12:33:15 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:01:41 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "runner.h"
+#include "utils/hash/runner.h"
 
 #define RUNNERS_COUNT 2
 const static t_runner runners[RUNNERS_COUNT] = {

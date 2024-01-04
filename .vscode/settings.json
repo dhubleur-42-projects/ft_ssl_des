@@ -17,6 +17,7 @@
 		"system_error": "c",
 		"type_traits": "c",
 		"variant": "c",
-		"stdbool.h": "c"
+		"stdbool.h": "c",
+		"parser.h": "c"
 	}
 }

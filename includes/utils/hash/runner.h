@@ -6,7 +6,7 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:34:57 by dhubleur          #+#    #+#             */
-/*   Updated: 2023/12/07 12:32:56 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:02:02 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 # include <stdio.h>
 
 # include "libft.h"
-# include "parser.h"
-# include "algorithms/md5.h"
-# include "algorithms/sha256.h"
+# include "utils/hash/parser.h"
+# include "algorithms/hash/md5.h"
+# include "algorithms/hash/sha256.h"
 
 typedef void (*t_string_runner)(char *, uint8_t *);
 typedef bool (*t_file_runner)(int, uint8_t *);

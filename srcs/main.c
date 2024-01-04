@@ -6,12 +6,12 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:33:28 by dhubleur          #+#    #+#             */
-/*   Updated: 2023/12/07 12:34:35 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:02:32 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "runner.h"
-#include "parser.h"
+#include "utils/hash/runner.h"
+#include "utils/hash/parser.h"
 
 void print_help()
 {

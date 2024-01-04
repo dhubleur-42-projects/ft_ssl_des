@@ -6,11 +6,11 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:19:31 by dhubleur          #+#    #+#             */
-/*   Updated: 2023/12/06 16:51:22 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:01:24 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "utils/hash/parser.h"
 
 static int	count_arguments(int argc, char **argv)
 {

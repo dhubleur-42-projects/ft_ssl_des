@@ -6,11 +6,11 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 22:01:27 by dhubleur          #+#    #+#             */
-/*   Updated: 2023/12/06 23:02:53 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:00:49 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "algorithms/sha256.h"
+#include "algorithms/hash/sha256.h"
 
 #define A 0x6a09e667
 #define B 0xbb67ae85

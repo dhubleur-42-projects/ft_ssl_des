@@ -6,11 +6,11 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 17:39:28 by dhubleur          #+#    #+#             */
-/*   Updated: 2023/12/07 12:23:27 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:01:34 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "runner.h"
+#include "utils/hash/runner.h"
 
 static void print_without_newline(char *str)
 {
