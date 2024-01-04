@@ -18,6 +18,7 @@
 		"type_traits": "c",
 		"variant": "c",
 		"stdbool.h": "c",
-		"parser.h": "c"
+		"parser.h": "c",
+		"fcntl.h": "c"
 	}
 }

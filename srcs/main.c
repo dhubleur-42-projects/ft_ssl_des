@@ -6,118 +6,64 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:33:28 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/04 13:09:33 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/04 15:19:03 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parser.h"
 #include "utils/hash/runner.h"
-#include "utils/hash/parser.h"
 
-void print_help()
+typedef bool (*t_is_command_type)(char *);
+typedef int (*t_type_runner)(int, char **);
+typedef struct {
+	t_is_command_type is_command_type;
+	t_type_runner runner;
+}	t_type_runner_storage;
+
+#define TYPE_RUNNERS_COUNT 1
+const static t_type_runner_storage type_runners[TYPE_RUNNERS_COUNT] = {
+	(t_type_runner_storage){ .is_command_type = hash_is_valid_command, .runner = hash_run }
+};
+
+void print_cmd_error()
 {
-	ft_putstr_fd("Usage: ./ft_ssl COMMAND [OPTIONS] [ARGUMENTS]\n\n", 1);
-	ft_putstr_fd("Hash stdin/file/string using a specifed algorithm\n\n", 1);
-	ft_putstr_fd("The COMMAND argument must be one of:\n", 1);
-	ft_putstr_fd("\tmd5\n", 1);
-	ft_putstr_fd("\tsha256\n", 1);
-	ft_putstr_fd("\nOPTIONS:\n", 1);
-	ft_putstr_fd("\t-h\tPrint this help\n", 1);
-	ft_putstr_fd("\t-p\tPrint content of stdin to stdout\n", 1);
-	ft_putstr_fd("\t-q\tQuiet mode. Print just the hash\n", 1);
-	ft_putstr_fd("\t-r\tReverse the format of the output\n", 1);
-	ft_putstr_fd("\t-s\tPrint the sum of the given string\n", 1);
-}
-
-#define STDIN_BUFFER_SIZE 1024
-
-char *read_stdin()
-{
-	char *buffer = malloc(sizeof(char) * (STDIN_BUFFER_SIZE + 1));
-	if (!buffer)
-		return (NULL);
-	buffer[0] = '\0';
-	int buffer_size = STDIN_BUFFER_SIZE;
-	int readed = 0;
-	int total_readed = 0;
-	char read_buffer[STDIN_BUFFER_SIZE + 1];
-	while ((readed = read(0, read_buffer, STDIN_BUFFER_SIZE)) > 0)
-	{
-		read_buffer[readed] = '\0';
-		if (total_readed + readed >= buffer_size)
-		{
-			buffer_size *= 2;
-			char *new_buffer = malloc(sizeof(char) * (buffer_size + 1));
-			if (!new_buffer)
-			{
-				free(buffer);
-				return (NULL);
-			}
-			ft_strcpy(new_buffer, buffer);
-			free(buffer);
-			buffer = new_buffer;
-		}
-		ft_strcat(buffer, read_buffer);
-		total_readed += readed;
-	}
-
-	return (buffer);
+	ft_putstr_fd("ft_ssl: Usage: ft_ssl [command] [command opts] [command args]\n", 2);
+	ft_putstr_fd("Use 'ft_ssl [command] -h' for more help\n", 2);
+	ft_putstr_fd("\n", 2);
+	ft_putstr_fd("Standard commands:\n", 2);
+	ft_putstr_fd("\n", 2);
+	ft_putstr_fd("Message Digest commands:\n", 2);
+	ft_putstr_fd("md5\n", 2);
+	ft_putstr_fd("sha256\n", 2);
+	ft_putstr_fd("\n", 2);
+	ft_putstr_fd("Cipher commands:\n", 2);
+	ft_putstr_fd("base64\n", 2);
+	ft_putstr_fd("des\n", 2);
+	ft_putstr_fd("des-ecb\n", 2);
+	ft_putstr_fd("des-cbc\n", 2);
 }
 
 int	main(int argc, char **argv)
 {
-	t_hash_parser parser;
-	if (!hash_parse(&parser, argc, argv))
+
+	t_parser parser;
+	if (!parse(argc, argv, &parser))
 	{
-		hash_free_parser(&parser);
+		print_cmd_error();
 		return (1);
 	}
-
 	if (parser.help)
 	{
-		print_help();
-		hash_free_parser(&parser);
+		print_cmd_error();
 		return (0);
 	}
 
-	if (!hash_is_valid_command(parser.command))
+	for (int i = 0; i < TYPE_RUNNERS_COUNT; i++)
 	{
-		ft_putstr_fd("ft_ssl: ", 2);
-		ft_putstr_fd(parser.command, 2);
-		ft_putstr_fd(": command not found\n", 2);
-		hash_free_parser(&parser);
-		return (1);
+		if (type_runners[i].is_command_type(parser.cmd))
+			return (type_runners[i].runner(argc, argv));
 	}
 
-	if (parser.arguments_count == 0 || parser.printing)
-	{
-		char *stdin_content = read_stdin();
-		if (!stdin_content)
-		{
-			ft_putstr_fd("A malloc failed\n", 2);
-			hash_free_parser(&parser);
-			return (1);
-		}
-		t_hash_argument argument = { .type = STRING, .name = stdin_content };
-		char *buffer;
-		if (!hash_run(parser, argument, &buffer))
-			free(stdin_content);
-		else
-		{
-			hash_print(parser, argument, true, buffer);
-			free(buffer);
-			free(stdin_content);
-		}
-	}
-	for (int i = 0; i < parser.arguments_count; i++)
-	{
-		char *buffer;
-		if (hash_run(parser, parser.arguments[i], &buffer))
-		{
-			hash_print(parser, parser.arguments[i], false, buffer);
-			free(buffer);
-		}
-	}
-
-	hash_free_parser(&parser);
-	return (0);
+	print_cmd_error();
+	return (1);
 }

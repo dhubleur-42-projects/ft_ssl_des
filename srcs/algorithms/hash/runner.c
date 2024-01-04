@@ -6,14 +6,14 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:34:50 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/04 13:09:49 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/04 15:20:40 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils/hash/runner.h"
 
 #define RUNNERS_COUNT 2
-const static t_hash_runner runners[RUNNERS_COUNT] = {
+const static t_hash_runner hash_runners[RUNNERS_COUNT] = {
 	(t_hash_runner){ "md5", md5_string, md5_file, 16 },
 	(t_hash_runner){ "sha256", sha256_string, sha256_file, 32 },
 };
@@ -22,7 +22,7 @@ bool hash_is_valid_command(char *command)
 {
 	for (int i = 0; i < RUNNERS_COUNT; i++)
 	{
-		if (ft_strcmp(runners[i].name, command) == 0)
+		if (ft_strcmp(hash_runners[i].name, command) == 0)
 			return true;
 	}
 	return false;
@@ -45,14 +45,14 @@ static bool convert_hash_to_string(uint8_t *hash, int hash_length, char **buffer
 	return (true);
 }
 
-bool hash_run(t_hash_parser parser, t_hash_argument argument, char **res)
+static bool run_element(t_hash_parser parser, t_hash_argument argument, char **res)
 {
 	t_hash_runner runner = { 0 };
 	for (int i = 0; i < RUNNERS_COUNT; i++)
 	{
-		if (ft_strcmp(runners[i].name, parser.command) == 0)
+		if (ft_strcmp(hash_runners[i].name, parser.command) == 0)
 		{
-			runner = runners[i];
+			runner = hash_runners[i];
 			break;
 		}
 	}
@@ -79,4 +79,69 @@ bool hash_run(t_hash_parser parser, t_hash_argument argument, char **res)
 	if (!convert_hash_to_string(hash, runner.hash_length, res))
 		return false;
 	return true;
+}
+
+static void print_help()
+{
+	ft_putstr_fd("Usage: ./ft_ssl COMMAND [OPTIONS] [ARGUMENTS]\n\n", 1);
+	ft_putstr_fd("Hash stdin/file/string using a specifed algorithm\n\n", 1);
+	ft_putstr_fd("The COMMAND argument must be one of:\n", 1);
+	ft_putstr_fd("\tmd5\n", 1);
+	ft_putstr_fd("\tsha256\n", 1);
+	ft_putstr_fd("\nOPTIONS:\n", 1);
+	ft_putstr_fd("\t-h\tPrint this help\n", 1);
+	ft_putstr_fd("\t-p\tPrint content of stdin to stdout\n", 1);
+	ft_putstr_fd("\t-q\tQuiet mode. Print just the hash\n", 1);
+	ft_putstr_fd("\t-r\tReverse the format of the output\n", 1);
+	ft_putstr_fd("\t-s\tPrint the sum of the given string\n", 1);
+}
+
+int hash_run(int argc, char **argv)
+{
+	t_hash_parser parser;
+	if (!hash_parse(&parser, argc, argv))
+	{
+		hash_free_parser(&parser);
+		return (1);
+	}
+
+	if (parser.help)
+	{
+		print_help();
+		hash_free_parser(&parser);
+		return (0);
+	}
+
+	if (parser.arguments_count == 0 || parser.printing)
+	{
+		char *stdin_content = read_stdin();
+		if (!stdin_content)
+		{
+			ft_putstr_fd("A malloc failed\n", 2);
+			hash_free_parser(&parser);
+			return (1);
+		}
+		t_hash_argument argument = { .type = STRING, .name = stdin_content };
+		char *buffer;
+		if (!run_element(parser, argument, &buffer))
+			free(stdin_content);
+		else
+		{
+			hash_print(parser, argument, true, buffer);
+			free(buffer);
+			free(stdin_content);
+		}
+	}
+	for (int i = 0; i < parser.arguments_count; i++)
+	{
+		char *buffer;
+		if (run_element(parser, parser.arguments[i], &buffer))
+		{
+			hash_print(parser, parser.arguments[i], false, buffer);
+			free(buffer);
+		}
+	}
+
+	hash_free_parser(&parser);
+	return (0);
 }

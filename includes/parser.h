@@ -5,38 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 17:19:09 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/04 14:57:23 by dhubleur         ###   ########.fr       */
+/*   Created: 2024/01/04 14:57:33 by dhubleur          #+#    #+#             */
+/*   Updated: 2024/01/04 15:11:30 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HASH_PARSER_H
-# define HASH_PARSER_H
+#ifndef PARSER_H
+# define PARSER_H
 
 # include "libft.h"
 # include <stdbool.h>
-
-typedef enum {
-	FILE_NAME,
-	STRING,
-}	HASH_ARG_TYPE;
-
-typedef struct {
-	char *name;
-	HASH_ARG_TYPE type;
-}	t_hash_argument;
+# include <stdio.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdlib.h>
 
 typedef struct {
+	char *cmd;
 	bool help;
-	bool printing;
-	bool quiet;
-	bool reverse;
-	char *command;
-	int arguments_count;
-	t_hash_argument *arguments;
-}	t_hash_parser;
+}	t_parser;
 
-bool	hash_parse(t_hash_parser *parser, int argc, char **argv);
-void 	hash_free_parser(t_hash_parser *parser);
+bool parse(int argc, char **argv, t_parser *parser);
 
 #endif

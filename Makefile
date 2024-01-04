@@ -2,6 +2,8 @@ NAME		=	ft_ssl
 
 SRCS		= 	\
 				main.c \
+				parser.c \
+				utils.c \
 				$(addprefix algorithms/, \
 					$(addprefix hash/, \
 						runner.c \

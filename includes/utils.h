@@ -1,42 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 17:19:09 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/04 14:57:23 by dhubleur         ###   ########.fr       */
+/*   Created: 2024/01/04 15:07:05 by dhubleur          #+#    #+#             */
+/*   Updated: 2024/01/04 15:11:42 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HASH_PARSER_H
-# define HASH_PARSER_H
+#ifndef UTILS_H
+# define UTILS_H
 
 # include "libft.h"
 # include <stdbool.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdlib.h>
 
-typedef enum {
-	FILE_NAME,
-	STRING,
-}	HASH_ARG_TYPE;
+# define STDIN_BUFFER_SIZE 1024
 
-typedef struct {
-	char *name;
-	HASH_ARG_TYPE type;
-}	t_hash_argument;
-
-typedef struct {
-	bool help;
-	bool printing;
-	bool quiet;
-	bool reverse;
-	char *command;
-	int arguments_count;
-	t_hash_argument *arguments;
-}	t_hash_parser;
-
-bool	hash_parse(t_hash_parser *parser, int argc, char **argv);
-void 	hash_free_parser(t_hash_parser *parser);
+char *read_stdin();
 
 #endif
