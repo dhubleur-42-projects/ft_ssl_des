@@ -6,7 +6,7 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:44:26 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/04 16:53:40 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/04 17:04:51 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int basic_cipher_run(int argc, char **argv)
 	}
 
 	ft_putstr_fd(res, output_fd);
+	ft_putstr_fd("\n", output_fd);
 
 	free(content);
 	free(res);

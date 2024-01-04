@@ -6,7 +6,7 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:06:48 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/04 16:39:30 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/04 17:13:51 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ char *read_file(int fd)
 		}
 		ft_strcat(buffer, read_buffer);
 		total_readed += readed;
+	}
+
+	if (readed == -1)
+	{
+		free(buffer);
+		return (NULL);
 	}
 
 	return (buffer);
