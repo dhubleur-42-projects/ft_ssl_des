@@ -6,7 +6,7 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 17:39:28 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/04 13:01:34 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:09:23 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void print_to_upper(char *str)
 
 }
 
-static void print_info(t_parser parser, t_argument argument, bool is_stdin, char *algorithm)
+static void print_info(t_hash_parser parser, t_hash_argument argument, bool is_stdin, char *algorithm)
 {
 	print_to_upper(algorithm);
 	ft_putstr_fd("(", 1);
@@ -69,7 +69,7 @@ static void print_info(t_parser parser, t_argument argument, bool is_stdin, char
 	ft_putstr_fd(")", 1);
 }
 
-void print(t_parser parser, t_argument argument, bool is_stdin, char *hash)
+void hash_print(t_hash_parser parser, t_hash_argument argument, bool is_stdin, char *hash)
 {
 	if (!parser.quiet && !parser.reverse)
 	{

@@ -6,7 +6,7 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:37:18 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/04 13:00:39 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:09:11 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void _md5_fill_and_run_if_complete(_md5_context_t *context, uint8_t *input, uint
     for(unsigned int i = 0; i < input_len; ++i)
 	{
         context->input[offset++] = (uint8_t)*(input + i);
-        // If we have a complete block, save it and run the algorithm
+        // If we have a complete block, save it and hash_run the algorithm
         if(offset % 64 == 0)
 		{
             for(unsigned int j = 0; j < 16; ++j)

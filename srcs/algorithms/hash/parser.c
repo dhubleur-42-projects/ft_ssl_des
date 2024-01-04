@@ -6,13 +6,13 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:19:31 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/04 13:01:24 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:07:39 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils/hash/parser.h"
 
-static int	count_arguments(int argc, char **argv)
+static int	count_hash_arguments(int argc, char **argv)
 {
 	int count = 0;
 	for (int i = 1; i < argc; i++)
@@ -23,7 +23,7 @@ static int	count_arguments(int argc, char **argv)
 	return (count);
 }
 
-static bool parse_option_string(t_parser *parser, char *str, bool *is_next_arg_a_string)
+static bool parse_option_string(t_hash_parser *parser, char *str, bool *is_next_arg_a_string)
 {
 	for (int i = 1; str[i]; i++)
 	{
@@ -49,7 +49,7 @@ static bool parse_option_string(t_parser *parser, char *str, bool *is_next_arg_a
 }
 
 
-bool	parse(t_parser *parser, int argc, char **argv)
+bool	hash_parse(t_hash_parser *parser, int argc, char **argv)
 {
 	parser->help = false;
 	parser->printing = false;
@@ -57,13 +57,13 @@ bool	parse(t_parser *parser, int argc, char **argv)
 	parser->reverse = false;
 	parser->command = NULL;
 	parser->arguments = NULL;
-	parser->arguments_count = count_arguments(argc, argv);
+	parser->arguments_count = count_hash_arguments(argc, argv);
 	parser->arguments_count--;
 	if (parser->arguments_count <= 0)
 		parser->arguments = NULL;
 	else
 	{
-		parser->arguments = malloc(sizeof(t_argument) * parser->arguments_count);
+		parser->arguments = malloc(sizeof(t_hash_argument) * parser->arguments_count);
 		if (!parser->arguments)
 		{
 			ft_putstr_fd("A malloc failed during parsing\n", 2);
@@ -95,7 +95,7 @@ bool	parse(t_parser *parser, int argc, char **argv)
 				parser->command = argv[i];
 			else
 			{
-				parser->arguments[arg_index++] = (t_argument){argv[i], is_next_arg_a_string ? STRING : FILE_NAME};
+				parser->arguments[arg_index++] = (t_hash_argument){argv[i], is_next_arg_a_string ? STRING : FILE_NAME};
 				is_next_arg_a_string = false;
 			}
 		}
@@ -113,7 +113,7 @@ bool	parse(t_parser *parser, int argc, char **argv)
 	return (true);
 }
 
-void free_parser(t_parser *parser)
+void hash_free_parser(t_hash_parser *parser)
 {
 	if (parser->arguments)
 		free(parser->arguments);

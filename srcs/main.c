@@ -6,7 +6,7 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:33:28 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/04 13:02:32 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:09:33 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,26 +65,26 @@ char *read_stdin()
 
 int	main(int argc, char **argv)
 {
-	t_parser parser;
-	if (!parse(&parser, argc, argv))
+	t_hash_parser parser;
+	if (!hash_parse(&parser, argc, argv))
 	{
-		free_parser(&parser);
+		hash_free_parser(&parser);
 		return (1);
 	}
 
 	if (parser.help)
 	{
 		print_help();
-		free_parser(&parser);
+		hash_free_parser(&parser);
 		return (0);
 	}
 
-	if (!is_valid_command(parser.command))
+	if (!hash_is_valid_command(parser.command))
 	{
 		ft_putstr_fd("ft_ssl: ", 2);
 		ft_putstr_fd(parser.command, 2);
 		ft_putstr_fd(": command not found\n", 2);
-		free_parser(&parser);
+		hash_free_parser(&parser);
 		return (1);
 	}
 
@@ -94,16 +94,16 @@ int	main(int argc, char **argv)
 		if (!stdin_content)
 		{
 			ft_putstr_fd("A malloc failed\n", 2);
-			free_parser(&parser);
+			hash_free_parser(&parser);
 			return (1);
 		}
-		t_argument argument = { .type = STRING, .name = stdin_content };
+		t_hash_argument argument = { .type = STRING, .name = stdin_content };
 		char *buffer;
-		if (!run(parser, argument, &buffer))
+		if (!hash_run(parser, argument, &buffer))
 			free(stdin_content);
 		else
 		{
-			print(parser, argument, true, buffer);
+			hash_print(parser, argument, true, buffer);
 			free(buffer);
 			free(stdin_content);
 		}
@@ -111,13 +111,13 @@ int	main(int argc, char **argv)
 	for (int i = 0; i < parser.arguments_count; i++)
 	{
 		char *buffer;
-		if (run(parser, parser.arguments[i], &buffer))
+		if (hash_run(parser, parser.arguments[i], &buffer))
 		{
-			print(parser, parser.arguments[i], false, buffer);
+			hash_print(parser, parser.arguments[i], false, buffer);
 			free(buffer);
 		}
 	}
 
-	free_parser(&parser);
+	hash_free_parser(&parser);
 	return (0);
 }

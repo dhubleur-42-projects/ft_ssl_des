@@ -6,7 +6,7 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:19:09 by dhubleur          #+#    #+#             */
-/*   Updated: 2023/12/06 16:51:18 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:07:39 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 typedef enum {
 	FILE_NAME,
 	STRING,
-}	ARG_TYPE;
+}	HASH_ARG_TYPE;
 
 typedef struct {
 	char *name;
-	ARG_TYPE type;
-}	t_argument;
+	HASH_ARG_TYPE type;
+}	t_hash_argument;
 
 typedef struct {
 	bool help;
@@ -33,10 +33,10 @@ typedef struct {
 	bool reverse;
 	char *command;
 	int arguments_count;
-	t_argument *arguments;
-}	t_parser;
+	t_hash_argument *arguments;
+}	t_hash_parser;
 
-bool	parse(t_parser *parser, int argc, char **argv);
-void 	free_parser(t_parser *parser);
+bool	hash_parse(t_hash_parser *parser, int argc, char **argv);
+void 	hash_free_parser(t_hash_parser *parser);
 
 #endif

@@ -6,19 +6,19 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:34:50 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/04 13:01:41 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:09:49 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils/hash/runner.h"
 
 #define RUNNERS_COUNT 2
-const static t_runner runners[RUNNERS_COUNT] = {
-	(t_runner){ "md5", md5_string, md5_file, 16 },
-	(t_runner){ "sha256", sha256_string, sha256_file, 32 },
+const static t_hash_runner runners[RUNNERS_COUNT] = {
+	(t_hash_runner){ "md5", md5_string, md5_file, 16 },
+	(t_hash_runner){ "sha256", sha256_string, sha256_file, 32 },
 };
 
-bool is_valid_command(char *command)
+bool hash_is_valid_command(char *command)
 {
 	for (int i = 0; i < RUNNERS_COUNT; i++)
 	{
@@ -28,7 +28,7 @@ bool is_valid_command(char *command)
 	return false;
 }
 
-bool convert_hash_to_string(uint8_t *hash, int hash_length, char **buffer)
+static bool convert_hash_to_string(uint8_t *hash, int hash_length, char **buffer)
 {
 	*buffer = malloc(hash_length * 2 + 1);
 	if (!*buffer)
@@ -45,9 +45,9 @@ bool convert_hash_to_string(uint8_t *hash, int hash_length, char **buffer)
 	return (true);
 }
 
-bool run(t_parser parser, t_argument argument, char **res)
+bool hash_run(t_hash_parser parser, t_hash_argument argument, char **res)
 {
-	t_runner runner = { 0 };
+	t_hash_runner runner = { 0 };
 	for (int i = 0; i < RUNNERS_COUNT; i++)
 	{
 		if (ft_strcmp(runners[i].name, parser.command) == 0)
