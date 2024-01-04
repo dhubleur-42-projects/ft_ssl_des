@@ -18,6 +18,13 @@ SRCS		= 	\
 							sha256_extern.c \
 						) \
 					) \
+					$(addprefix cipher/, \
+						$(addprefix basic/, \
+							base64.c \
+							parser.c \
+							runner.c \
+						) \
+					) \
 				)
 
 _OBJS		=	${SRCS:.c=.o}

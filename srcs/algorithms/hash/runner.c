@@ -12,15 +12,15 @@
 
 #include "utils/hash/runner.h"
 
-#define RUNNERS_COUNT 2
-const static t_hash_runner hash_runners[RUNNERS_COUNT] = {
+#define HASH_RUNNERS_COUNT 2
+const static t_hash_runner hash_runners[HASH_RUNNERS_COUNT] = {
 	(t_hash_runner){ "md5", md5_string, md5_file, 16 },
 	(t_hash_runner){ "sha256", sha256_string, sha256_file, 32 },
 };
 
 bool hash_is_valid_command(char *command)
 {
-	for (int i = 0; i < RUNNERS_COUNT; i++)
+	for (int i = 0; i < HASH_RUNNERS_COUNT; i++)
 	{
 		if (ft_strcmp(hash_runners[i].name, command) == 0)
 			return true;
@@ -48,7 +48,7 @@ static bool convert_hash_to_string(uint8_t *hash, int hash_length, char **buffer
 static bool run_element(t_hash_parser parser, t_hash_argument argument, char **res)
 {
 	t_hash_runner runner = { 0 };
-	for (int i = 0; i < RUNNERS_COUNT; i++)
+	for (int i = 0; i < HASH_RUNNERS_COUNT; i++)
 	{
 		if (ft_strcmp(hash_runners[i].name, parser.command) == 0)
 		{

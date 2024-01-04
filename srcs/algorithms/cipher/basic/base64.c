@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   base64.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:07:05 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/04 16:39:36 by dhubleur         ###   ########.fr       */
+/*   Created: 2024/01/04 15:44:25 by dhubleur          #+#    #+#             */
+/*   Updated: 2024/01/04 16:52:26 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "algorithms/cipher/base64.h"
 
-# include "libft.h"
-# include <stdbool.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdlib.h>
+char *base64_encode(char *input)
+{
+	return (ft_strdup(input));
+}
 
-# define STDIN_BUFFER_SIZE 1024
-
-char *read_stdin();
-char *read_file(int fd);
-
-#endif
+char *base64_decode(char *input)
+{
+	return (ft_strdup(input));
+}

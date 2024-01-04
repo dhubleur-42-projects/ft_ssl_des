@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   basic_parser.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:07:05 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/04 16:39:36 by dhubleur         ###   ########.fr       */
+/*   Created: 2023/12/05 17:19:09 by dhubleur          #+#    #+#             */
+/*   Updated: 2024/01/04 16:46:17 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef BASIC_PARSER_H
+# define BASIC_PARSER_H
 
 # include "libft.h"
 # include <stdbool.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdlib.h>
 
-# define STDIN_BUFFER_SIZE 1024
+typedef enum {
+	ENCODE,
+	DECODE,
+}	t_basic_cipher_mode;
 
-char *read_stdin();
-char *read_file(int fd);
+typedef struct {
+	t_basic_cipher_mode	mode;
+	char			*input;
+	char			*output;
+	bool help;
+}	t_basic_cipher_parser;
+
+bool basic_cipher_parse(int argc, char **argv, t_basic_cipher_parser *parser);
 
 #endif

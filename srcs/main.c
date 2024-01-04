@@ -6,12 +6,13 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:33:28 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/04 15:19:03 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/04 16:51:30 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "utils/hash/runner.h"
+#include "utils/cipher/basic_runner.h"
 
 typedef bool (*t_is_command_type)(char *);
 typedef int (*t_type_runner)(int, char **);
@@ -20,9 +21,10 @@ typedef struct {
 	t_type_runner runner;
 }	t_type_runner_storage;
 
-#define TYPE_RUNNERS_COUNT 1
+#define TYPE_RUNNERS_COUNT 2
 const static t_type_runner_storage type_runners[TYPE_RUNNERS_COUNT] = {
-	(t_type_runner_storage){ .is_command_type = hash_is_valid_command, .runner = hash_run }
+	(t_type_runner_storage){ .is_command_type = hash_is_valid_command, .runner = hash_run },
+	(t_type_runner_storage){ .is_command_type = basic_cipher_is_valid_command, .runner = basic_cipher_run }
 };
 
 void print_cmd_error()

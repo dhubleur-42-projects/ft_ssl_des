@@ -6,7 +6,7 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:06:48 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/04 15:11:57 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/04 16:39:30 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 
 char *read_stdin()
 {
+	return (read_file(0));
+}
+
+char *read_file(int fd)
+{
 	char *buffer = malloc(sizeof(char) * (STDIN_BUFFER_SIZE + 1));
 	if (!buffer)
 		return (NULL);
@@ -24,7 +29,7 @@ char *read_stdin()
 	int readed = 0;
 	int total_readed = 0;
 	char read_buffer[STDIN_BUFFER_SIZE + 1];
-	while ((readed = read(0, read_buffer, STDIN_BUFFER_SIZE)) > 0)
+	while ((readed = read(fd, read_buffer, STDIN_BUFFER_SIZE)) > 0)
 	{
 		read_buffer[readed] = '\0';
 		if (total_readed + readed >= buffer_size)
