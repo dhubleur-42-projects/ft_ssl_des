@@ -6,7 +6,7 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:19:09 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/04 16:46:17 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/05 13:48:31 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct {
 	char			*input;
 	char			*output;
 	bool help;
+	bool newline;
 }	t_basic_cipher_parser;
 
 bool basic_cipher_parse(int argc, char **argv, t_basic_cipher_parser *parser);

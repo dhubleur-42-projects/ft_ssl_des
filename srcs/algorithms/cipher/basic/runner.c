@@ -6,7 +6,7 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:44:26 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/04 17:04:51 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/05 13:50:00 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void print_help()
 	ft_putstr_fd("\t-d\tDecode mode\n", 1);
 	ft_putstr_fd("\t-i\tUse a file as input\n", 1);
 	ft_putstr_fd("\t-o\tUse a file as output\n", 1);
+	ft_putstr_fd("\t-n\tPrint a newline every 64 characters\n", 1);
 }
 
 int basic_cipher_run(int argc, char **argv)
@@ -125,8 +126,25 @@ int basic_cipher_run(int argc, char **argv)
 		}
 	}
 
-	ft_putstr_fd(res, output_fd);
-	ft_putstr_fd("\n", output_fd);
+	if (parser.mode == ENCODE && parser.newline)
+	{
+		int i = 0;
+		while (res[i] != '\0')
+		{
+			ft_putchar_fd(res[i], output_fd);
+			if (i % 64 == 63)
+				ft_putchar_fd('\n', output_fd);
+			i++;
+		}
+		if (i % 64 != 0)
+			ft_putchar_fd('\n', output_fd);
+	}
+	else
+	{
+		ft_putstr_fd(res, output_fd);
+		if (parser.mode == ENCODE)
+			ft_putstr_fd("\n", output_fd);
+	}
 
 	free(content);
 	free(res);

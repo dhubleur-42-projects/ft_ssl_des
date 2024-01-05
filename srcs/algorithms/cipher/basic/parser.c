@@ -6,7 +6,7 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:44:26 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/04 16:46:41 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/05 13:49:11 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static bool parse_option_string(t_basic_cipher_parser *parser, char *str, bool *
 			*is_next_arg_input = true;
 		else if (str[i] == 'o')
 			*is_next_arg_output = true;
+		else if (str[i] == 'n')
+			parser->newline = true;
 		else
 		{
 			ft_putstr_fd("Unknown option: ", 2);
@@ -43,6 +45,7 @@ bool basic_cipher_parse(int argc, char **argv, t_basic_cipher_parser *parser)
 	parser->input = NULL;
 	parser->output = NULL;
 	parser->help = false;
+	parser->newline = false;
 
 	bool is_next_arg_input = false;
 	bool is_next_arg_output = false;
