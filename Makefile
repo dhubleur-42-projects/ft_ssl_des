@@ -5,6 +5,7 @@ SRCS		= 	\
 				parser.c \
 				utils.c \
 				$(addprefix algorithms/, \
+					pbkdf1.c \
 					$(addprefix hash/, \
 						runner.c \
 						parser.c \
