@@ -31,7 +31,8 @@ SRCS		= 	\
 
 TEST_SRCS	= 	\
 				main.test.c \
-				md5.test.c
+				md5.test.c \
+				sha256.test.c
 
 _OBJS		=	${SRCS:.c=.o}
 OBJS		=	$(addprefix build/, $(_OBJS))

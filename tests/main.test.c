@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main.test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:02:23 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/17 15:04:35 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/17 16:39:05 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 #include <stdlib.h>
 
 Suite *md5_suite(void);
+Suite *sha256_suite(void);
 
 typedef Suite *(*SuiteFunction)();
-SuiteFunction suites[] = {md5_suite, NULL};
+SuiteFunction suites[] = {md5_suite, sha256_suite, NULL};
 int main(void) {
   int no_failed = 0;                   
   
@@ -27,7 +28,7 @@ int main(void) {
 	srunner_add_suite(runner, s);
   }
 
-  srunner_run_all(runner, CK_VERBOSE);  
+  srunner_run_all(runner, CK_NORMAL);  
   no_failed = srunner_ntests_failed(runner); 
   srunner_free(runner);                      
   return (no_failed == 0) ? EXIT_SUCCESS : EXIT_FAILURE;  
