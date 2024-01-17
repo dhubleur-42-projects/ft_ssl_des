@@ -6,7 +6,7 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:36:18 by dhubleur          #+#    #+#             */
-/*   Updated: 2023/12/06 17:07:29 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:08:07 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ typedef struct {
 void _md5_init(_md5_context_t *context);
 void _md5_fill_and_run_if_complete(_md5_context_t *context, uint8_t *input, uint64_t input_len);
 void _md5_padd_and_finalize(_md5_context_t *context);
+bool convert_hash_to_string(uint8_t *hash, int hash_length, char **buffer);
 
 #endif

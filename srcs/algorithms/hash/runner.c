@@ -6,7 +6,7 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:34:50 by dhubleur          #+#    #+#             */
-/*   Updated: 2024/01/04 15:20:40 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:07:59 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool hash_is_valid_command(char *command)
 	return false;
 }
 
-static bool convert_hash_to_string(uint8_t *hash, int hash_length, char **buffer)
+bool convert_hash_to_string(uint8_t *hash, int hash_length, char **buffer)
 {
 	*buffer = malloc(hash_length * 2 + 1);
 	if (!*buffer)

@@ -30,7 +30,8 @@ SRCS		= 	\
 				)
 
 TEST_SRCS	= 	\
-				main.c
+				main.test.c \
+				md5.test.c
 
 _OBJS		=	${SRCS:.c=.o}
 OBJS		=	$(addprefix build/, $(_OBJS))

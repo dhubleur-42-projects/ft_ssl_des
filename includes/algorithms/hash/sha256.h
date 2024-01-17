@@ -6,7 +6,7 @@
 /*   By: dhubleur <dhubleur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 21:58:19 by dhubleur          #+#    #+#             */
-/*   Updated: 2023/12/06 23:02:18 by dhubleur         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:08:12 by dhubleur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ typedef struct {
 void _sha256_init(_sha256_context_t *context);
 void _sha256_fill_and_run_if_complete(_sha256_context_t *context, uint8_t *input, uint64_t input_len);
 void _sha256_padd_and_finalize(_sha256_context_t *context);
+bool convert_hash_to_string(uint8_t *hash, int hash_length, char **buffer);
 
 #endif
