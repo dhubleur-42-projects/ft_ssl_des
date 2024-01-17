@@ -1,4 +1,5 @@
 NAME		=	ft_ssl
+TEST_NAME 	=	ft_ssl_test
 
 SRCS		= 	\
 				main.c \
@@ -28,17 +29,31 @@ SRCS		= 	\
 					) \
 				)
 
+TEST_SRCS	= 	\
+				main.c
+
 _OBJS		=	${SRCS:.c=.o}
 OBJS		=	$(addprefix build/, $(_OBJS))
 OBJS_DEPEND	=	${OBJS:.o=.d}
+
+_TEST_OBJS		=	${TEST_SRCS:.c=.o}
+TEST_OBJS		=	$(addprefix test_build/, $(_TEST_OBJS))
+TEST_TO_LINK = $(filter-out build/main.o, $(OBJS)) $(TEST_OBJS)
+TEST_LINK_ARG = -L /home/dhubleur/fake_bin/lib -lcheck -lm -lpthread -lrt
 
 CC			=	clang
 CFLAGS		=   -Wall -Wextra -Werror -g3
 INCLUDE		=	-I includes/ -I libft
 
+TEST_INCLUDE	=	$(INCLUDE) -I /home/dhubleur/fake_bin/include
+
 LIBFT		=	libft/libft.a
 
-all		:	$(NAME)
+exec: $(NAME)
+
+test: $(TEST_NAME)
+
+all		:	exec test
 
 $(LIBFT): FORCE
 	make -C libft
@@ -49,17 +64,26 @@ build/%.o	:	srcs/%.c
 	fi
 	$(CC) ${CFLAGS} -MMD -MF $(@:.o=.d) ${INCLUDE} -c $< -o $@
 
+test_build/%.o	:	tests/%.c
+	@if [ ! -d $(dir $@) ]; then\
+		mkdir -p $(dir $@);\
+	fi
+	$(CC) ${TEST_INCLUDE} -c $< -o $@
+
 $(NAME)	:	$(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 -include $(OBJS_DEPEND)
 
+$(TEST_NAME)	:	$(TEST_TO_LINK) $(LIBFT)
+	$(CC) ${TEST_LINK_ARG} $(TEST_TO_LINK) $(LIBFT) -o $(TEST_NAME)
+
 clean	:	
-	rm -Rf build/ $(TEST_NAME)
+	rm -Rf build/ test_build/
 
 
 fclean	:	clean
-	rm -f ${NAME}
+	rm -f ${NAME} ${TEST_NAME}
 
 fcleanlib: fclean
 	make -C libft fclean
@@ -72,4 +96,4 @@ relib	:	fcleanlib
 
 FORCE:
 
-.PHONY	:	all clean fclean re FORCE fcleanlib relib
+.PHONY	:	all clean fclean re FORCE fcleanlib relib exec test
